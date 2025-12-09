@@ -4,8 +4,8 @@ export default function plugin(_motia: MotiaPluginContext): MotiaPlugin {
   return {
     workbench: [
       {
-        packageName: "ws-plugin",
-        cssImports: ["ws-plugin/dist/styles.css"],
+        packageName: "@potatocoder/ws-plugin",
+        cssImports: ["@potatocoder/ws-plugin/dist/styles.css"],
         label: "WS Logs",
         position: "bottom",
         componentName: "WebSocketsPage",

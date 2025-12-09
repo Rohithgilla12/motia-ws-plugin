@@ -1,109 +1,88 @@
-# @motiadev/plugin-example
+# @potatocoder/ws-plugin
 
-A minimal example plugin demonstrating the Motia plugin system.
+A Motia workbench plugin for real-time WebSocket log monitoring and debugging.
 
 ## Overview
 
-This plugin serves as a reference implementation showing how to create custom workbench plugins for Motia. It demonstrates:
+This plugin adds a "WS Logs" tab to the Motia workbench bottom panel, providing:
 
-- Basic plugin structure and configuration
-- Creating custom workbench tabs with position control
-- Using Motia's UI component library (`@motiadev/ui`)
-- Building with tsdown and TypeScript
-- Tailwind CSS v4 styling with PostCSS
-- React Compiler optimization via Babel
+- Real-time WebSocket message monitoring
+- Stream subscription management (logs, API endpoints, custom streams)
+- JSON syntax highlighting with expand/collapse for large payloads
+- Message filtering by stream
+- Connection status indicators
+- Copy-to-clipboard functionality
 
 ## Installation
 
 ```bash
-pnpm install
+npm install @potatocoder/ws-plugin
+# or
+pnpm add @potatocoder/ws-plugin
+```
+
+## Usage
+
+Add the plugin to your `motia.config.ts`:
+
+```typescript
+import wsPlugin from '@potatocoder/ws-plugin/plugin'
+
+export default {
+  plugins: [wsPlugin],
+}
+```
+
+The plugin will automatically appear as a "WS Logs" tab in the bottom panel of your Motia workbench.
+
+## Features
+
+### Stream Subscriptions
+
+The plugin auto-subscribes to default Motia streams on connection:
+- `__motia.logs` - Application logs
+- `__motia.api-endpoints` - API request/response events
+
+Add custom streams via the "Add" button in the stream bar.
+
+### Message Types
+
+Messages are color-coded by type:
+- **System** - Connection events (amber)
+- **Error** - Error messages (red)
+- **Sync/Create/Update/Delete** - CRUD operations (various colors)
+- **Sent** - Outgoing messages (blue)
+
+### Exported APIs
+
+```typescript
+// Main component
+export { WebSocketsPage } from '@potatocoder/ws-plugin'
+
+// Types
+export type { WebSocketConnection, WebSocketMessage, WebSocketStats } from '@potatocoder/ws-plugin'
+
+// Zustand store for external state access
+export { useWebSocketStore } from '@potatocoder/ws-plugin'
+
+// Hooks
+export { useWebSocketConnections, useWebSocketMessages } from '@potatocoder/ws-plugin'
 ```
 
 ## Development
 
 ```bash
-# Build the plugin
-pnpm run build
-
-# Watch mode for development
-pnpm run dev
-
-# Clean build artifacts
-pnpm run clean
+pnpm install
+pnpm run dev      # Watch mode
+pnpm run build    # Production build
+pnpm run clean    # Remove dist/
 ```
 
-## Usage
+## Requirements
 
-To use this plugin in your Motia project, import it in your `motia.config.ts`:
+- Motia with `@motiadev/core` and `@motiadev/ui`
+- React 19+
 
-```typescript
-import examplePlugin from '@motiadev/plugin-example/plugin'
+## License
 
-export default {
-  plugins: [examplePlugin],
-}
-```
-
-## Plugin Configuration
-
-The plugin exports a function that receives the `MotiaPluginContext` and returns a `MotiaPlugin` object:
-
-```typescript
-import type { MotiaPlugin, MotiaPluginContext } from '@motiadev/core'
-
-export default function plugin(_motia: MotiaPluginContext): MotiaPlugin {
-  return {
-    workbench: [
-      {
-        packageName: '@motiadev/plugin-example',
-        cssImports: ['@motiadev/plugin-example/dist/index.css'],
-        label: 'Example',
-        position: 'bottom',
-        componentName: 'ExamplePage',
-        labelIcon: 'sparkles',
-      },
-    ],
-  }
-}
-```
-
-### Workbench Options
-
-| Option          | Description                                |
-| --------------- | ------------------------------------------ |
-| `packageName`   | The npm package name for dynamic imports   |
-| `cssImports`    | Array of CSS files to load with the plugin |
-| `label`         | Display name shown in the workbench tab    |
-| `position`      | Tab position: `'top'` or `'bottom'`        |
-| `componentName` | Name of the exported React component       |
-| `labelIcon`     | Lucide icon name for the tab               |
-
-## Structure
-
-```
-plugin-example/
-├── src/
-│   ├── components/
-│   │   └── example-page.tsx    # Main UI component
-│   ├── index.ts                # Package entry point (exports components)
-│   ├── plugin.ts               # Plugin definition
-│   └── styles.css              # Tailwind CSS styles
-├── dist/                       # Build output
-├── package.json
-├── tsconfig.json
-├── tsdown.config.ts            # Build configuration
-├── postcss.config.js           # PostCSS/Tailwind config
-└── README.md
-```
-
-## Features Demonstrated
-
-- **Custom Workbench Tab**: Adds an "Example" tab to the bottom panel
-- **UI Components**: Uses `Badge` and `Button` from `@motiadev/ui`
-- **Icons**: Integrates Lucide React icons
-- **Responsive Layout**: Grid-based responsive design with Tailwind CSS
-- **Type Safety**: Full TypeScript support with proper type declarations
-
-## Learn More
-
-For detailed documentation on creating plugins, see the [Plugins Guide](../../packages/docs/content/docs/development-guide/plugins.mdx).
+MIT
