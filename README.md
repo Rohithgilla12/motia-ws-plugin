@@ -2,6 +2,8 @@
 
 A Motia workbench plugin for real-time WebSocket log monitoring and debugging.
 
+![WebSocket Plugin Screenshot](assets/screenshot.png)
+
 ## Overview
 
 This plugin adds a "WS Logs" tab to the Motia workbench bottom panel, providing:

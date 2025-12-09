@@ -57,8 +57,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rohithgilla12/motia-ws-plugin"
+    "url": "git+https://github.com/Rohithgilla12/motia-ws-plugin.git"
   },
+  "bugs": {
+    "url": "https://github.com/Rohithgilla12/motia-ws-plugin/issues"
+  },
+  "homepage": "https://github.com/Rohithgilla12/motia-ws-plugin#readme",
   "keywords": [
     "motia",
     "websocket",
