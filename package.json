@@ -2,7 +2,7 @@
   "name": "@potatocoder/ws-plugin",
   "version": "0.1.0",
   "description": "A Motia workbench plugin for real-time WebSocket log monitoring and debugging",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
